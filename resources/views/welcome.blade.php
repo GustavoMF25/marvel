@@ -14,28 +14,33 @@
 
         <!--Bootstrap-->
         <link href="{{asset('assets/bootstrap-5/css/bootstrap.min.css')}}" rel="stylesheet" />
+        <!-- Estilo padrão criado para o welcome -->
+        <link href="{{asset('css/default.css')}}" rel="stylesheet" />
+        <!--Normalize para tirar o estilo padrão do navegador-->
+        <link href="{{asset('css/normalize.min.css')}}" rel="stylesheet" />
         <style>
-            body {
-                font-family: "RobotoCondensed Bold", sans-serif;
-            }
+
         </style>
     </head>
     <body>
-        <div>
-            @if (Route::has('login'))
+        <div class="container">
             <div>
-                @auth
-                <a href="{{ url('/dashboard') }}">Dashboard</a>
-                @else
-                <a href="{{ route('login') }}">Log in</a>
+                @if (Route::has('login'))
+                <div>
+                    @auth
+                    <a href="{{ url('/dashboard') }}">Dashboard</a>
+                    @else
+                    <a href="{{ route('login') }}">Log in</a>
 
-                @if (Route::has('register'))
-                <a href="{{ route('register') }}">Register</a>
-                @endif
-                @endauth
+                    @if (Route::has('register'))
+                    <a href="{{ route('register') }}">Register</a>
+                    @endif
+                    @endauth
+                </div>
+                @endif          
             </div>
-            @endif          
         </div>
+
         <script src="{{ asset('assets/bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
     </body>
 </html>

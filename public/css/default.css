@@ -1,0 +1,12 @@
+/* 
+    Created on : 19 de out. de 2021, 19:37:03
+    Author     : Gustavo Fernandes
+*/
+
+body {
+    font-family: "RobotoCondensed Bold", sans-serif;
+    background-image: url('../imagens/background-marvel.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: cover;
+}
