@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\consumirMarvelController;
+use App\Http\Controllers\dashboardController;
 
 /*
   |--------------------------------------------------------------------------
@@ -18,10 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::post('/dashboard', [dashboardController::class, 'buscaComics'])->middleware(['auth'])->name('buscaComics');
 
-Route::get('/consumirApiMarvel', [consumirMarvelController::class, 'index'])->name('ApiMarvel');
+Route::get('/consumirApiMarvel', [consumirMarvelController::class, 'BuscaTitleId'])->name('ApiMarvel');
 
 require __DIR__ . '/auth.php';

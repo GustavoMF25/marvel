@@ -8,19 +8,14 @@ use Illuminate\Support\Facades\Http;
 
 class consumirMarvelController extends Controller {
 
-    public function index(Request $Request) {
+    public function BuscaTitleId($titleId) {
         try {
-
-            $titleId = $Request->all();
-
             // Verifica se o valor passao é numérico ou uma string, caso for o prefixo vai ser definico para procurar um id se não vai procurar um título
-
-            if (is_numeric($titleId['titleId'])) {
-                $prefix = '/' . $titleId['titleId'];
+            if (is_numeric($titleId)) {
+                $prefix = '/' . $titleId;
             } else {
-                $prefix = '?title=' . $titleId['titleId'];
+                $prefix = '?title=' . $titleId;
             }
-
             $date = date_create();
             $timestamps = date_timestamp_get($date);
             $apiKeyPublic = '53ba98862d7d43f30ce5398d47c95c35';
@@ -37,11 +32,28 @@ class consumirMarvelController extends Controller {
                 $dadosComics[$key][] = $response['data']['results'][$key]['description'];
                 $dadosComics[$key][] = $response['data']['results'][$key]['urls'];
                 $dadosComics[$key][] = $response['data']['results'][$key]['thumbnail'];
+                $dadosComics[$key][] = $response['data']['results'][$key]['ean'];
+                $dadosComics[$key][] = $response['data']['results'][$key]['prices'];
                 $dadosComics[$key][] = $response['data']['results'][$key]['images'];
             }
-            return response()->json($dadosComics);
+            // Ferifica se existe comics de acordo com o title ou id pedidos
+            if (count($dadosComics) > 1) {
+                // se existir retorna os comics
+                return response()->json($dadosComics);
+            } else {
+                // se não existir retornará uma mensagem de error
+                $dadosComics = [
+                    'sucesso' => false,
+                    "mensagem" => 'Comics não encontrada',
+                ];
+                return response()->json([$dadosComics]);
+            }
         } catch (Exception $e) {
-//             return response()->json($params, 400);
+            $dadosComics = [
+                'sucesso' => false,
+                "mensagem" => $e,
+            ];
+            return response()->json([$dadosComics]);
         }
     }
 
