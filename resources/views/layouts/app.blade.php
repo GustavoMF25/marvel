@@ -18,6 +18,9 @@
         <link href="{{asset('css/normalize.min.css')}}" rel="stylesheet" />
         <!--Adicionando icone-->
         <link rel="shortcut icon" href="{{ asset('imagens/icon.png') }}">
+        <!--Select2-->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
         <script type="text/javascript">
             var loader;
             function preloader(value) {
@@ -36,10 +39,18 @@
                 loader = document.getElementById('preloader');
                 preloader(1)
             })
+        </script>
+
+        <script>
 
         </script>
 
+
         <script src="{{ asset('assets/bootstrap-5/js/bootstrap.bundle.min.js') }}" defer></script>
+        <!--JQUERY-->
+        <script src="{{ asset('assets/jquery/jquery.min.js') }}" defer></script>
+        <!--Select 2-->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
     </head>
     <body>
         <div id="preloader"></div>
@@ -61,7 +72,7 @@
                     <ul class="navbar-nav d-flex mr-3 mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Opções
+                                {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <form method="POST" action="{{ route('logout') }}">
@@ -82,5 +93,7 @@
                 </div>
             </div>
         </div>
+
+        @yield('script')
     </body>
 </html>
