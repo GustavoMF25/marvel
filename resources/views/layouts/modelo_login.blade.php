@@ -20,7 +20,7 @@
 
         <script src="{{ asset('assets/bootstrap-5/js/bootstrap.bundle.min.js') }}" defer></script>
     </head>
-    <body class="container-fluid d-flex justify-content-center">
+    <body class="container-fluid d-flex justify-content-center" style="background-color: black ">
         <div class="wrapper">
 
             <div class="content-wrapper">

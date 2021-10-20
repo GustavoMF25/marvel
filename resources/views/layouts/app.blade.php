@@ -53,27 +53,32 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                         </li>
-                        <!--                        <li class="nav-item">
-                                                    <a class="nav-link" href="#"></a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#">Pricing</a>
-                                                </li>-->
+                    </ul>
+                    <ul class="navbar-nav d-flex mr-3 mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Opções
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <li><button type="submit" class="dropdown-item" href="#">Sair</button></li>
+                                </form>
+
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
         <div class="container">
             <div class="wrapper">
-
                 <div class="content-wrapper">
-
                     @yield('conteudo')
-                    {{-- CONTEUDO CONTIDO NA VIEW --}}
                 </div>
             </div>
         </div>
