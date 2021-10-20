@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Marvel</title>
+        <title>@yield('title')</title>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,22 +20,12 @@
 
         <script src="{{ asset('assets/bootstrap-5/js/bootstrap.bundle.min.js') }}" defer></script>
     </head>
-    <body class="container-fluid welcome-background d-flex justify-content-center">
-        <div class="row">
-            <div class="justify-content-center">
-                @if (Route::has('login'))
-                <div>
-                    @auth
-                    <a href="{{ url('/dashboard') }}" class="btn btn-dark">Acessar</a>
-                    @else
-                    <a href="{{ route('login') }}" class="btn btn-dark">Login</a>
+    <body class="container-fluid d-flex justify-content-center">
+        <div class="wrapper">
 
-                    @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="btn btn-dark">Register</a>
-                    @endif
-                    @endauth
-                </div>
-                @endif          
+            <div class="content-wrapper">
+                @yield('conteudo')
+                {{-- CONTEUDO CONTIDO NA VIEW --}}
             </div>
         </div>
 
