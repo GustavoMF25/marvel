@@ -1,5 +1,5 @@
 @extends('layouts.modelo_login')
-
+@section('title', 'Marvel - Login')
 @section('conteudo')
 
 <div class="login">

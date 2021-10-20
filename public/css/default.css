@@ -84,9 +84,6 @@ body {
         background-size: 100%;
     }
 }
-.container-fluid {
-    background-color: black;
-}
 .login {
     position: absolute;
     top: 30%;
@@ -130,4 +127,14 @@ input:focus {
 }
 .error-text {
     color: red;
+}
+#preloader{
+    height: 100vh;
+    width: 100%;
+    background: #fafafa url('../imagens/loader.gif') no-repeat center center;
+    background-size: 5%;
+    position: fixed;
+    z-index: 1;
+    overflow: visible;
+    /*transition: all .3s;*/
 }

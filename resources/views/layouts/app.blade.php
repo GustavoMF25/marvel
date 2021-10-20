@@ -1,27 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-    </head>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-         <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>{{ config('app.name', 'Marvel') }}</title>
+        <title>@yield('title')</title>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,22 +18,64 @@
         <link href="{{asset('css/normalize.min.css')}}" rel="stylesheet" />
         <!--Adicionando icone-->
         <link rel="shortcut icon" href="{{ asset('imagens/icon.png') }}">
+        <script type="text/javascript">
+            var loader;
+            function preloader(value) {
+                if (value <= 0) {
+                    displayContent()
+                } else {
+                    window.setTimeout(() => {
+                        preloader(value - 0.10)
+                    }, 100)
+                }
+            }
+            function  displayContent() {
+                loader.style.display = 'none';
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                loader = document.getElementById('preloader');
+                preloader(1)
+            })
+
+        </script>
+
+        <script src="{{ asset('assets/bootstrap-5/js/bootstrap.bundle.min.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+    <body>
+        <div id="preloader"></div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="{{asset('imagens/icon.png')}}" alt="" width="30" height="24" class="d-inline-block align-text-top">                    
+                    Marvel 
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                        </li>
+                        <!--                        <li class="nav-item">
+                                                    <a class="nav-link" href="#"></a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">Pricing</a>
+                                                </li>-->
+                    </ul>
                 </div>
-            </header>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="wrapper">
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                <div class="content-wrapper">
+
+                    @yield('conteudo')
+                    {{-- CONTEUDO CONTIDO NA VIEW --}}
+                </div>
+            </div>
         </div>
     </body>
 </html>
