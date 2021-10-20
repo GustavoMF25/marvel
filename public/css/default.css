@@ -6,23 +6,37 @@
 body {
     font-family: "RobotoCondensed Bold", sans-serif;
 }
-.welcome-background{
+.login-background {
+    background-image:url('../imagens/backgroud-login.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    overflow: auto;
+    background-color: black;text-align: center;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    width:100%;
+}
+.welcome-background {
     background-image: url('../imagens/background-marvel.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed; 
     overflow: auto;
-    background-color: black;
-    text-align: center;
+    background-color: black;text-align: center;
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: 100%;
+
+}
+.view-imagem{
+    width: 100%;
 }
 
 @media (min-width: 768px) {
-    .welcome-background{
-        background-image: url('../imagens/background-marvel.jpg');
+    .welcome-background .login-background{
         background-repeat: no-repeat;
         color: black;
         background-color: black;
@@ -39,8 +53,7 @@ body {
 }
 
 @media (min-width: 992px) {
-    .welcome-background{
-        background-image: url('../imagens/background-marvel.jpg');
+    .welcome-background .login-background{
         background-repeat: no-repeat;
         color: black;
         overflow: auto;
@@ -56,9 +69,8 @@ body {
     }
 }
 @media (min-width: 1200px) {
-    .welcome-background{
+    .welcome-background .login-background{
         background-color:black;
-        background-image:url('../imagens/background-marvel.jpg');
         background-repeat: no-repeat;
         color: black;
         overflow: auto;
@@ -72,10 +84,12 @@ body {
         background-size: 100%;
     }
 }
-
+.container-fluid {
+    background-color: black;
+}
 .login {
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
     width: 300px;
     height: 300px;
@@ -89,12 +103,15 @@ body {
     letter-spacing:1px;
     text-align:center; 
 }
+
+/*Estilo do input*/
 input { 
     width: 100%; 
-    background: rgba(207, 108, 108,0.5);
+    background: #171616;
     padding: 5px;
     font-size: 13px;
-    color: #333;
+    color:#596EDB;
+    font-weight: bold;
     /*text-shadow: 1px 1px 1px rgba(0,0,0,0.3);*/
     border: 1px solid rgba(0,0,0,0.3);
     border-radius: 4px;
@@ -107,4 +124,10 @@ input {
 }
 input:focus {
     box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2);
+}
+.card{
+    border-radius: 18px;
+}
+.error-text {
+    color: red;
 }

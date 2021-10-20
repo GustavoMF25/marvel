@@ -1,59 +1,41 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.modelo_login')
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+@section('conteudo')
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+<div class="login">
+    <div class="row view-imagem">
+        <div class="col-lg-12 col-md-12 mb-2">
+            <image class="login-background " src="{{asset('../imagens/backgroud-login.jpg')}}" />
+        </div>
+    </div>
+    <div class="row">
+        <x-auth-validation-errors class=" error-text mb-4" :errors="$errors" />
+        <div class="col-lg-12 col-md-12  mb-2">
+            <div class="card" style="width: 18rem;">
+                <h1>Register</h1>
+                <div class="card-body">
+                    <form method="post" action="{{ route('register') }}" >
+                        @csrf
+                        <div class="col-lg-12 col-md-12  mb-2">
+                            <input autocomplete="anyrandomstring" placeholder="Nome" id="name" class="block mt-1 w-full"  type="text" name="name" :value="old('name')" required autofocus />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+                            <input autocomplete="off" placeholder="E-mail" id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+                            <input placeholder="Senha" autocomplete="off" id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+                            <input placeholder="Confirmar Senha" autocomplete="off" id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-dark btn-lg">Registrar-se</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+        </div>
+    </div>
+</div>
+<!-- /.content -->
+@endsection
