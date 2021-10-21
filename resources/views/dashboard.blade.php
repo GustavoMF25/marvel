@@ -14,55 +14,55 @@
         </div>
     </div>
 
-    @if(isset($data))
-    <div class="card mt-3">
-        <div class="card-body">
-            @foreach($data as $key => $value)
-            {{$value[1]}}
-            <br>
-            @endforeach
+    <div class="row">
+        @if(isset($data))
+        @foreach($data as $key => $value)
+        <div class="col-lg-3">
+            <div class="card mt-3">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner d-flex">
+                        @foreach($value[7] as $keyimg => $valueimg)
+                        @if($keyimg == 0)
+                        <div class="carousel-item active">
+                            <img class="d-block w-100 " id="{{$value[0]}}_{{$keyimg}}" src="{{$valueimg->path}}.{{$valueimg->extension}}" class="card-img-top" alt="...">
+                        </div>
+                        @else
+                        <div class="carousel-item">
+                            <img class="d-block w-100" id="{{$value[0]}}_{{$keyimg}}" src="{{$valueimg->path}}.{{$valueimg->extension}}" class="card-img-top" alt="...">
+                        </div>
+                        @endif
+                        @endforeach
+                    </div>
+                </div>
+                <div class="card-body">
+                    #{{$value[0]}}
+                    <br>
+                    Nome: {{$value[1]}}
+                    <br>
+                    Descrição: {{$value[2]}}
+                    <br>
+
+                    <br>
+
+                </div>
+            </div>            
         </div>
+        @endforeach
     </div>
-    @endif
-
-    @if(isset($error))
-    <div class="alert alert-danger mt-3 text-center mensagemError" role="alert">
-        {{$error[0]->mensagem}}
-    </div>
-    @endif
-
 
 </div>
+@endif
+
+@if(isset($error))
+<div class="alert alert-danger mt-3 text-center mensagemError" role="alert">
+    {{$error[0]->mensagem}}
+</div>
+@endif
 
 
+<!--</div>-->
 @endsection
 
 @section('script')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        $("#BuscarComics").click(function () {
-            let parametro = $('#valorTitleId').val()
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                method: "get",
-                url: "{{route('ApiMarvel')}}",
-                data: {titleId: parametro},
-                dataType: 'json',
-                success: function (dados) {
-                    if (Object.keys(dados).length > 2) {
-                        $('.mensagemError').addClass('d-none');
-                        console.log(dados)
-                    } else {
-                        $('.mensagemError').removeClass('d-none').html(dados.mensagem)
-                    }
-                },
-                error: function (e) {
-                    $('.mensagemError').removeClass('d-none').html(e)
-                }
-            })
-        });
-    })
-</script>
+
 @endsection
