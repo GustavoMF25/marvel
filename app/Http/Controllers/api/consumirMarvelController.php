@@ -17,6 +17,7 @@ class consumirMarvelController extends Controller {
             } else {
                 $prefix = '?title=' . $titleId;
             }
+
             $date = date_create();
             $timestamps = date_timestamp_get($date);
             $apiKeyPublic = '53ba98862d7d43f30ce5398d47c95c35';
@@ -91,6 +92,7 @@ class consumirMarvelController extends Controller {
                     $guadrinho->ean = $dadosEan;
                     $guadrinho->prices = $dadosPrices;
                     $guadrinho->images = $dadosImages;
+                    Guadrinhos::truncate();
                     $guadrinho->save();
                     $contSucesso++;
                 } else {

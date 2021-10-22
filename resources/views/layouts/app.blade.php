@@ -68,7 +68,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">Inicio</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}"><i class="fas fa-home"></i> Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{route('favoritos')}}"><i style="color: #E8D108" class="fas fa-star"></i> Favoritos</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav d-flex mr-3 mb-2 mb-lg-0">
@@ -124,7 +127,7 @@
                             $('.mensagemRetorno').html(text)
                             if (dados.repetidos > 0) {
                                 $('.toast').addClass('bg-warning')
-                            }else{
+                            } else {
                                 $('.toast').addClass('bg-primary')
                             }
                             $('.toast').addClass('show')
@@ -133,7 +136,7 @@
                             }, 20000)
                         },
                         error: function (error) {
-                            
+
                         }
                     })
                 })

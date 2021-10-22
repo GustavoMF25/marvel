@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\consumirMarvelController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\detalhesComicsController;
+use App\Http\Controllers\FavoritoController;
 
 /*
   |--------------------------------------------------------------------------
@@ -23,9 +24,8 @@ Route::get('/', function () {
 Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 Route::post('/dashboard', [dashboardController::class, 'buscaComics'])->middleware(['auth'])->name('buscaComics');
 
-//Route::get('/consumirApiMarvel', [consumirMarvelController::class, 'BuscaTitleId'])->name('ApiMarvel');
-//Route::get('/consumirApiMarvelSemanal', [consumirMarvelController::class, 'StoreUltimaSemana'])->name('ApiMarvelSemanal');
+Route::get('/favoritos', [FavoritoController::class, 'index'])->middleware(['auth'])->name('favoritos');
 
-Route::get('/detalhesComics', [detalhesComicsController::class, 'index'])->name('verDetalhes');
+Route::get('/detalhesComics', [detalhesComicsController::class, 'index'])->middleware(['auth'])->name('verDetalhes');
 
 require __DIR__ . '/auth.php';
