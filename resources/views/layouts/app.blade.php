@@ -12,6 +12,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
         <!--Bootstrap-->
         <link href="{{asset('assets/bootstrap-5/css/bootstrap.min.css')}}" rel="stylesheet" />
+        <!--FontAwesome-->
+        <link href="{{asset('assets/fontawesome/css/all.min.css')}}" rel="stylesheet" />
         <!-- Estilo padrão criado para o welcome -->
         <link href="{{asset('css/default.css')}}" rel="stylesheet" />
         <!--Normalize para tirar o estilo padrão do navegador-->
@@ -23,6 +25,8 @@
 
         <script type="text/javascript">
             var loader;
+
+            // Função para manter o load até o carregamento completo da página
             function preloader(value) {
                 if (value <= 0) {
                     displayContent()
@@ -41,22 +45,20 @@
             })
         </script>
 
-        <script>
-
-        </script>
-
-
         <script src="{{ asset('assets/bootstrap-5/js/bootstrap.bundle.min.js') }}" defer></script>
         <!--JQUERY-->
         <script src="{{ asset('assets/jquery/jquery.min.js') }}" defer></script>
-        <!--Select 2-->
+        <script src="{{ asset('assets/popper/popper.min.js') }}" defer></script>
+        <!--FontAwesome-->
+        <script src="{{ asset('assets/fontawesome/js/all.min.js') }}" defer></script>
+        <!--Select 2 Via Web-->
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
     </head>
     <body>
         <div id="preloader"></div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{route('dashboard')}}">
                     <img src="{{asset('imagens/icon.png')}}" alt="" width="30" height="24" class="d-inline-block align-text-top">                    
                     Marvel 
                 </a>
@@ -66,10 +68,14 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">Inicio</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav d-flex mr-3 mb-2 mb-lg-0">
+                        <li class="nav-item async">
+                            <a class="nav-link" href="#" id="async" alt="Sincronizar" ><i class="fas fa-sync-alt "></i> Sincronizar semana 
+                            </a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ Auth::user()->name }}
@@ -86,14 +92,52 @@
                 </div>
             </div>
         </nav>
+
         <div class="container">
             <div class="wrapper">
+                <div class="d-flex justify-content-end mt-2">
+                    <div class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body mensagemRetorno">
+
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
                 <div class="content-wrapper">
                     @yield('conteudo')
                 </div>
             </div>
         </div>
 
+
         @yield('script')
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                $('.async').click(function () {
+                    $.ajax({
+                        method: "get",
+                        url: "{{route('ApiMarvelSemanal')}}",
+                        success: function (dados) {
+                            let text = "Comics salvas: " + dados.salvos + "<br> Comics repetidas: " + dados.repetidos;
+                            $('.mensagemRetorno').html(text)
+                            if (dados.repetidos > 0) {
+                                $('.toast').addClass('bg-warning')
+                            }else{
+                                $('.toast').addClass('bg-primary')
+                            }
+                            $('.toast').addClass('show')
+                            setTimeout(() => {
+                                $('.toast').removeClass('show')
+                            }, 20000)
+                        },
+                        error: function (error) {
+                            console.log(error)
+                        }
+                    })
+                })
+            })
+        </script>
     </body>
 </html>

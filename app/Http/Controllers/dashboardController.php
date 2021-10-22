@@ -13,14 +13,11 @@ class dashboardController extends Controller {
 
     public function buscaComics(Request $request) {
         $dados = $request->all();
-        if (isset($dados['valorTitleId'])) {
-
+        if (isset($dados['valorTitleId']) || $dados['valorTitleId'] != null) {
             $result = consumirMarvelController::BuscaTitleId($dados['valorTitleId']);
-
             $dados = $result->getData();
-
 //            dd($dados);
-            if (count($dados) > 1) {
+            if ($dados[0][0] != false) {
                 return view('dashboard', ['data' => $dados]);
             } else {
                 return view('dashboard', ['error' => $dados]);
