@@ -109,12 +109,6 @@ class consumirMarvelController extends Controller {
 
             return response()->json($informações);
         }
-//        else {
-//            $dadosComics[0] = false;
-//            $dadosComics[1] = 'Nenhu';
-//
-//            return response()->json([$dadosComics]);
-//        }
     }
 
 }
