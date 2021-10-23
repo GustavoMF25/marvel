@@ -110,7 +110,7 @@
                         $('.toast').removeClass('show').addClass('hide');
                     }, 12000)
                 }
-                
+
                 if(dados.sucesso === false){
                     $('.toast').removeClass('hide').addClass('show').addClass('bg-danger').removeClass('bg-success')
                     $('.mensagemRetorno').html(dados.mensagem)
