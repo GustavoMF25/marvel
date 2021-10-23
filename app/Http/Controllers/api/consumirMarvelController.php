@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use App\Models\Models\Guadrinhos;
+use App\Models\Models\Quadrinhos;
 
 class consumirMarvelController extends Controller {
 
@@ -69,6 +69,7 @@ class consumirMarvelController extends Controller {
 
         // Verifica se existe algum item encontrado
         if (intval($response['data']['count']) > 0) {
+            Quadrinhos::truncate();
             forEach ($response['data']['results'] as $key => $value) {
                 $dadosIdComics = $response['data']['results'][$key]['id'];
                 $dadosTitle = $response['data']['results'][$key]['title'];
@@ -79,21 +80,21 @@ class consumirMarvelController extends Controller {
                 $dadosPrices = json_encode($response['data']['results'][$key]['prices']);
                 $dadosImages = json_encode($response['data']['results'][$key]['images']);
 
-                $verificaIdComics = Guadrinhos::where("idComics", $dadosIdComics)
+                $verificaIdComics = Quadrinhos::where("idComics", $dadosIdComics)
                         ->select('idComics')
                         ->first();
                 if (is_null($verificaIdComics)) {
-                    $guadrinho = new Guadrinhos;
-                    $guadrinho->idComics = $dadosIdComics;
-                    $guadrinho->title = $dadosTitle;
-                    $guadrinho->description = $dadosDescription;
-                    $guadrinho->url = $dadosUrls;
-                    $guadrinho->thumbnail = $dadosThumbnail;
-                    $guadrinho->ean = $dadosEan;
-                    $guadrinho->prices = $dadosPrices;
-                    $guadrinho->images = $dadosImages;
-                    Guadrinhos::truncate();
-                    $guadrinho->save();
+                    $quadrinho = new Quadrinhos;
+                    $quadrinho->idComics = $dadosIdComics;
+                    $quadrinho->title = $dadosTitle;
+                    $quadrinho->description = $dadosDescription;
+                    $quadrinho->url = $dadosUrls;
+                    $quadrinho->thumbnail = $dadosThumbnail;
+                    $quadrinho->ean = $dadosEan;
+                    $quadrinho->prices = $dadosPrices;
+                    $quadrinho->images = $dadosImages;
+
+                    $quadrinho->save();
                     $contSucesso++;
                 } else {
                     $contError++;

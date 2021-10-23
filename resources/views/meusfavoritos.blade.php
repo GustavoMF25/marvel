@@ -1,1 +1,9 @@
-{{print_r($guadrinhos->getData())}}
+
+
+@extends('layouts.app')
+@section('title', 'Marvel - Dashboard')
+@section('conteudo')
+
+{{print_r($guadrinhos)}}
+
+@endsection

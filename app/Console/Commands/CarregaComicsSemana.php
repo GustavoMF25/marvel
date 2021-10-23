@@ -8,7 +8,7 @@ use App\Http\Controllers\api\consumirMarvelController;
 class CarregaComicsSemana extends Command {
 
     protected $signature = 'busca:semanacomics';
-    protected $description = 'Busca as Comics/Guadrinhos da semana';
+    protected $description = 'Busca as Comics/Quadrinhos da semana';
 
     public function __construct() {
         parent::__construct();

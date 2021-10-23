@@ -201,5 +201,20 @@ li:hover fa-sync-alt{
     -o-transform: rotate(45deg);
     animation: async 0.8s linear infinite;
 }
+.toast{
+    transition: 0.8s;
+}
+
+#adicionarMinhaLista{
+    cursor: pointer;
+    background-color: transparent;
+    opacity: 0.5;
+}
+#adicionarMinhaLista:hover{
+    opacity: 1;
+    -webkit-box-shadow: -2px 2px 41px -14px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 2px 41px -14px rgba(0,0,0,0.75);
+    box-shadow: -2px 2px 41px -14px rgba(0,0,0,0.75); 
+}
 
 

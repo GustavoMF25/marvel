@@ -6,9 +6,9 @@
     <div class="card mt-3">
         <div class="card-body">
             <h5 class="card-title">Pesquisa de Comics</h5>
-            <form class='d-flex' method="post" accept-charset="{{route('buscaComics')}}">
+            <form class='d-flex' method="get" action="{{route('buscaComics')}}">
                 @csrf
-                <input class="form-control me-2" id="valorTitleId" name="valorTitleId" type="search" placeholder="Pesquisar por Título ou Id" aria-label="Search">
+                <input class="form-control me-2" id="valorTitleId" name="valorTitleId" type="search" placeholder="Pesquisar por Título ou Id" aria-label="Search" required>
                 <button class="btn btn-outline-success" type="submit">Pesquisar</button>
             </form>
         </div>
@@ -19,8 +19,11 @@
         @foreach($data as $key => $value)
 
         <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-            <div class="card mt-3 cardComics">
-                <form id="form_{{$value[0]}}" method="get" action="{{route('verDetalhes')}}">
+            <div class="card mt-3">
+
+
+
+                <form class="cardComics" id="form_{{$value[0]}}" method="get" action="{{route('verDetalhes')}}">
                     <input type="text" value="{{$value[0]}}" name="idComics" hidden>
                     <a onClick="document.getElementById('form_{{$value[0]}}').submit();">
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -46,23 +49,29 @@
 
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-12">
-                                    <span class="fw-bold" style="font-size: small">#{{$value[0]}}</span>
-                                </div>
-                                <div class="col-12">
-                                    <span class="fw-bold">Título:</span> {{$value[1]}}
-                                </div> 
-                            </div>
-                            <div class="row">
-<!--                                <div class="col-4">
-                                    <span class="small">Favoritar </span><i style="color: #D8D70F" class="far fa-star"></i>
-                                </div>-->
-                            </div>
-                        </div>
                     </a>
                 </form>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="fw-bold" style="font-size: small">#{{$value[0]}}</span>
+                        </div>
+                        <div class="col-12">
+                            <span class="fw-bold">Título:</span> {{$value[1]}}
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-6 ">
+                            <button class="btn btn-link" onclick="salvarComics('{{$value[0]}}')">
+                                <i style="color: #4cdf16; width: 20px; height: 20px;"  class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-12 text-center">
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div> 
 
@@ -80,14 +89,42 @@
 </div>
 @endif
 @endsection
-
 @section('script')
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    $('.buscarCard').click(function () {
-    alert('aqui')
-    })
-    })
+    function salvarComics(idComics) {
+        console.log(idComics);
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: "post",
+            url: "{{route('salvarComics')}}",
+            data: {idComics: idComics, _token: '{{csrf_token()}}'},
+            success: function (dados) {
+//                Assim que a requisição terminar vai exibir as mensagens recebidas do controller
+                if(dados.sucesso === true){
+                    $('.toast').removeClass('hide').addClass('show').addClass('bg-success').removeClass('bg-danger')
+                    
+                    $('.mensagemRetorno').html(dados.mensagem)
+                    setTimeout(() => {
+                        $('.toast').removeClass('show').addClass('hide');
+                    }, 12000)
+                }
+                
+                if(dados.sucesso === false){
+                    $('.toast').removeClass('hide').addClass('show').addClass('bg-danger').removeClass('bg-success')
+                    $('.mensagemRetorno').html(dados.mensagem)
+                    setTimeout(() => {
+                        $('.toast').removeClass('show').addClass('hide');
+                    }, 12000)
+                }
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
 
 </script>
 @endsection
+

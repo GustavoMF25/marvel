@@ -18,6 +18,15 @@
                             <span class="fw-bold"> # {{$data[0][0]}}</span>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-12 text-center">
+                            <input type="hidden" id="starValue" name="idComics" value="{{$data[0][0]}}">
+                            <button id="iconStar" type="button" class="btn btn-link"><i  style="color: #E8D108; font-size: 30px;" class="far fa-star"></i></button>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-12 text-center">
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -66,4 +75,24 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        $("#iconStar").hover(
+                function () {
+                    $('#iconStar').html('<i  style="color: #E8D108; font-size: 30px;" class="fas fa-star"></i>')
+                },
+                function () {
+                    $('#iconStar').html('<i  style="color: #E8D108; font-size: 30px;" class="far fa-star"></i>')
+                }
+        );
+        $('#iconStar').click(function () {
+            
+        })
+    })
+
+
+</script>
 @endsection
