@@ -20,6 +20,7 @@ class MeusQuadrinhosController extends Controller {
             $dadosQuadrinhos[$key][] = $value->ean;
             $dadosQuadrinhos[$key][] = json_decode($value->prices, true);
             $dadosQuadrinhos[$key][] = json_decode($value->images, true);
+            $dadosQuadrinhos[$key][] = $value->comentario;
         }
 
         return view('meusQuadrinhos', ['data' => $dadosQuadrinhos]);

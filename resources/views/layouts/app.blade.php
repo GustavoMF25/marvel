@@ -92,7 +92,7 @@
                     </ul>
                     <ul class="navbar-nav d-flex mr-3 mb-2 mb-lg-0">
                         <li class="nav-item async">
-                            <a class="nav-link" href="#" id="async" alt="Sincronizar" ><i class="fas fa-sync-alt "></i> Sincronizar semana 
+                            <a class="nav-link" href="#" id="async" alt="Sincronizar" ><i class="fas fa-sync-alt async-icon"></i> Sincronizar semana 
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -140,12 +140,15 @@
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 $('.async').click(function () {
+                    $('.async-icon').addClass('rotate-icon');
                     $.ajax({
                         method: "get",
                         url: "{{route('ApiMarvelSemanal')}}",
                         success: function (dados) {
+                            $('.async-icon').removeClass('rotate-icon');
                             let text = "Comics salvas: " + dados.salvos + "<br> Comics repetidas: " + dados.repetidos;
                             $('.mensagemRetorno').html(text)
+
                             if (dados.repetidos > 0) {
                                 $('.toast').addClass('bg-warning')
                             } else {
@@ -157,7 +160,12 @@
                             }, 10000)
                         },
                         error: function (error) {
-                            console.log(error)
+                            $('.async-icon').removeClass('rotate-icon');
+                            $('.toast').removeClass('hide').addClass('show').addClass('bg-danger').removeClass('bg-success')
+                            $('.mensagemRetorno').html('Erro ao tentar sincronizar!')
+                            setTimeout(() => {
+                                $('.toast').removeClass('show').addClass('hide');
+                            }, 12000)
                         }
                     })
                 })
@@ -181,7 +189,7 @@
                             $('.toast').removeClass('show').addClass('hide');
                         }, 12000)
                     }
-                    
+
                 }
             })
 
