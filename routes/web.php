@@ -25,13 +25,13 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [dashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 Route::get('/dashboard/show', [dashboardController::class, 'show'])->middleware(['auth'])->name('buscaComics');
-Route::post('/dashboard/salvar/', [dashboardController::class, 'store'])->middleware(['auth'])->name('salvarComics');
+Route::post('/dashboard/salvar', [dashboardController::class, 'store'])->middleware(['auth'])->name('salvarComics');
 
 Route::get('/favoritos', [FavoritoController::class, 'index'])->middleware(['auth'])->name('favoritos');
 Route::post('/favoritos', [FavoritoController::class, 'store'])->middleware(['auth'])->name('comicsFavoritar');
 
 Route::get('/meusQuadrinhos', [MeusQuadrinhosController::class, 'index'])->middleware(['auth'])->name('indexMeusQuadrinho');
-Route::post('/meusQuadrinhos', [MeusQuadrinhosController::class, 'store'])->middleware(['auth'])->name('storeMeusQuadrinhos');
+Route::get('/meusQuadrinhos/salvar/', [MeusQuadrinhosController::class, 'store'])->middleware(['auth'])->name('storeMeusQuadrinhos');
 Route::get('/meusQuadrinhos/delete', [MeusQuadrinhosController::class, 'destroy'])->middleware(['auth'])->name('destroyMeusQuadrinhos');
 
 Route::get('/ComicsDaSemana', [QuadrinhoController::class, 'index'])->middleware(['auth'])->name('comicsSemana');

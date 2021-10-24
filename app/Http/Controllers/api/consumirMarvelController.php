@@ -41,14 +41,18 @@ class consumirMarvelController extends Controller {
                 }
                 return response()->json($dadosComics);
             } else {
-                $dadosComics[0] = false;
-                $dadosComics[1] = 'Comics não encontrada!';
-                return response()->json([$dadosComics]);
+                $informações = [
+                    "error" => true,
+                    "mensagem" => 'Comics não encontrada!',
+                ];
+                return response()->json($informações);
             }
         } catch (Exception $e) {
-            $dadosComics[0] = false;
-            $dadosComics[1] = $e;
-            return response()->json([$dadosComics]);
+            $informações = [
+                "error" => true,
+                "mensagem" => 'Error: ' . $e,
+            ];
+            return response()->json($informações);
         }
     }
 

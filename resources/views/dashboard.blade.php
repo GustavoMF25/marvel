@@ -72,56 +72,15 @@
                 </div>
            </div>
         </div> 
-
-
         @endforeach
         @endif
     </div>
 
 </div>
-
-
-@if(isset($error))
-<div class="alert alert-danger mt-3 text-center mensagemError" role="alert">
-    {{$error[0][1]}}
-</div>
-@endif
 @endsection
 @section('script')
 <script>
-    function salvarComics(idComics) {
-        console.log(idComics);
-        $.ajax({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            method: "post",
-            url: "{{route('salvarComics')}}",
-            data: {idComics: idComics, _token: '{{csrf_token()}}'},
-            success: function (dados) {
-//                Assim que a requisição terminar vai exibir as mensagens recebidas do controller
-                if(dados.sucesso === true){
-                    $('.toast').removeClass('hide').addClass('show').addClass('bg-success').removeClass('bg-danger')
-                    
-                    $('.mensagemRetorno').html(dados.mensagem)
-                    setTimeout(() => {
-                        $('.toast').removeClass('show').addClass('hide');
-                    }, 12000)
-                }
-
-                if(dados.sucesso === false){
-                    $('.toast').removeClass('hide').addClass('show').addClass('bg-danger').removeClass('bg-success')
-                    $('.mensagemRetorno').html(dados.mensagem)
-                    setTimeout(() => {
-                        $('.toast').removeClass('show').addClass('hide');
-                    }, 12000)
-                }
-            },
-            error: function (error) {
-                console.log(error)
-            }
-        })
-    }
+    
 </script>
 @endsection
 

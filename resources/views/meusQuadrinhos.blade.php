@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row mb-3">
-        @if(isset($data))
+        @if(isset($data) && $data != [])
         @foreach($data as $key => $value)
 
         <div class="col-lg-4 col-md-6 col-sm-6 col-6">
@@ -50,19 +50,23 @@
                     <div class="row">
 
                         <div class="card card-body">
-                            
+
                         </div>
                     </div>
                     <div class="row d-flex justify-content-between">
                         <div class="col-6 d-flex justify-content-start">
                             <a class="btn" ata-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> 
-                                <span class="small"><i style="color: #D8D70F" class="fas fa-comments"></i> </span>
+                                <i class="fas fa-paper-plane"></i>
                             </a>
                         </div>
                         <div class="col-6 d-flex justify-content-end">
-                            <button class="btn" onclick="ExcluirComics('{{$value[0]}}')">
-                                <span class="small"><i style="color: #ff1a1a" class="fas fa-trash"></i></span>
-                            </button>
+                            <form method="get" action="{{route('destroyMeusQuadrinhos')}}">
+                                @csrf
+                                <input name="idComics" hidden value="{{$value[0]}}" />
+                                <button class="btn" type="submit">
+                                    <span class="small"><i style="color: #ff1a1a" class="fas fa-trash"></i></span>
+                                </button>
+                            </form>
                         </div>
                     </div>
 
@@ -74,7 +78,7 @@
 
         @endforeach
         @else
-        <div class="text-center">
+        <div class="text-center fw-bold">
             Sua lista está vazia!!
         </div>
         @endif
@@ -90,11 +94,11 @@
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
             method: "get",
-            url: "{{route('destroyMeusQuadrinhos')}}",
+            url: "",
             data: {idComics: idComics, _token: '{{csrf_token()}}'},
             success: function (dados) {
             console.log(dados)
-//                Assim que a requisição terminar vai exibir as mensagens recebidas do controller
+                    //                Assim que a requisição terminar vai exibir as mensagens recebidas do controller
                     if (dados.sucesso === true){
             $('.toast').removeClass('hide').addClass('show').addClass('bg-success').removeClass('bg-danger')
                     $('.mensagemRetorno').html(dados.mensagem)
@@ -116,5 +120,6 @@
             }
     })
     }
+
 </script>
 @endsection

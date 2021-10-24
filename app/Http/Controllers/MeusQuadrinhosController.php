@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Models\MeusQuadrinhos;
+use App\Http\Controllers\api\consumirMarvelController;
 
 class MeusQuadrinhosController extends Controller {
 
@@ -30,37 +31,54 @@ class MeusQuadrinhosController extends Controller {
 
     public function store(Request $request) {
         try {
-            $dados = json_decode($request->all()['Comics'], true);
-            $verificaIdComics = MeusQuadrinhos::where("idComics", $dados[0])
+            $result = $request->all();
+            $dados = consumirMarvelController::BuscaTitleId($result['idComics']);
+            $comics = $dados->getData();
+            $dadosComics = [];
+            $user = auth()->user();
+            $dadosIdComics = $comics[0][0];
+            $dadosTitle = $comics[0][1];
+            $dadosDescription = $comics[0][2];
+            $dadosUrls = json_encode($comics[0][3]);
+            $dadosThumbnail = json_encode($comics[0][4]);
+            $dadosEan = $comics[0][5];
+            $dadosPrices = json_encode($comics[0][6]);
+            $dadosImages = json_encode($comics[0][7]);
+
+            $meusQuadrinhos = new MeusQuadrinhos;
+            $verificaExist = MeusQuadrinhos::where('idComics', $comics[0][0])
                     ->select('idComics')
                     ->first();
+            if (is_null($verificaExist)) {
+                $meusQuadrinhos->user_id = $user->id;
+                $meusQuadrinhos->idComics = $dadosIdComics;
+                $meusQuadrinhos->title = $dadosTitle;
+                $meusQuadrinhos->description = $dadosDescription;
+                $meusQuadrinhos->url = $dadosUrls;
+                $meusQuadrinhos->thumbnail = $dadosThumbnail;
+                $meusQuadrinhos->ean = $dadosEan;
+                $meusQuadrinhos->prices = $dadosPrices;
+                $meusQuadrinhos->images = $dadosImages;
 
-            if (!$verificaIdComics) {
-                $user = auth()->user();
-                $quadrinho = new MeusQuadrinhos;
-                $quadrinho->user_id = $user->id;
-                $quadrinho->idComics = $dados[0];
-                $quadrinho->title = $dados[1];
-                $quadrinho->description = $dados[2];
-                $quadrinho->url = json_encode($dados[3]);
-                $quadrinho->thumbnail = json_encode($dados[4]);
-                $quadrinho->ean = $dados[5];
-                $quadrinho->prices = json_encode($dados[6]);
-                $quadrinho->images = json_encode($dados[7]);
-                $quadrinho->save();
-
-                $mensagem[0] = true;
-                $mensagem[1] = 'Comics salva na sua lista!';
-                return response()->json([$mensagem]);
+                $meusQuadrinhos->save();
+                $informações = [
+                    "error" => false,
+                    "mensagem" => "Comics salva com sucesso!!",
+                ];
+                return response()->json($informações);
             } else {
-                $mensagem[0] = false;
-                $mensagem[1] = 'Comics já está na sua lista';
-                return response()->json([$mensagem]);
+                $informações = [
+                    "error" => true,
+                    "mensagem" => "Comics já está salva!!",
+                ];
+                return response()->json($informações);
             }
         } catch (Exception $e) {
-            $mensagem[0] = true;
-            $mensagem[1] = 'Error: ' . $e;
-            return response()->json([$mensagem]);
+            $informações = [
+                "error" => true,
+                "mensagem" => "Error: " . $e,
+            ];
+            return response()->json($informações);
         }
     }
 
@@ -78,17 +96,44 @@ class MeusQuadrinhosController extends Controller {
                 MeusQuadrinhos::destroy($item->id);
             }
             $informações = [
-                "sucesso" => true,
+                "error" => false,
                 "mensagem" => 'Comics excluida da sua lista!',
             ];
-            return response()->json($informações);
+
+            $quadrinhos = MeusQuadrinhos::all();
+            $dadosQuadrinhos = [];
+            foreach ($quadrinhos as $key => $value) {
+                $dadosQuadrinhos[$key][] = $value->idComics;
+                $dadosQuadrinhos[$key][] = $value->title;
+                $dadosQuadrinhos[$key][] = $value->description;
+                $dadosQuadrinhos[$key][] = json_decode($value->url, true);
+                $dadosQuadrinhos[$key][] = json_decode($value->thumbnail, true);
+                $dadosQuadrinhos[$key][] = $value->ean;
+                $dadosQuadrinhos[$key][] = json_decode($value->prices, true);
+                $dadosQuadrinhos[$key][] = json_decode($value->images, true);
+            }
+
+            return view('meusQuadrinhos', ['error' => json_encode($informações), 'data' => $dadosQuadrinhos]);
         } else {
 
+            $quadrinhos = MeusQuadrinhos::all();
+            $dadosQuadrinhos = [];
+            foreach ($quadrinhos as $key => $value) {
+                $dadosQuadrinhos[$key][] = $value->idComics;
+                $dadosQuadrinhos[$key][] = $value->title;
+                $dadosQuadrinhos[$key][] = $value->description;
+                $dadosQuadrinhos[$key][] = json_decode($value->url, true);
+                $dadosQuadrinhos[$key][] = json_decode($value->thumbnail, true);
+                $dadosQuadrinhos[$key][] = $value->ean;
+                $dadosQuadrinhos[$key][] = json_decode($value->prices, true);
+                $dadosQuadrinhos[$key][] = json_decode($value->images, true);
+            }
+
             $informações = [
-                "sucesso" => false,
+                "error" => true,
                 "mensagem" => 'Comics não encontrada na sua lista',
             ];
-            return response()->json($informações);
+            return view('meusQuadrinhos', ['error' => json_encode($informações), 'data' => $dadosQuadrinhos]);
         }
     }
 

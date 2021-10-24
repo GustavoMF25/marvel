@@ -17,13 +17,18 @@ class dashboardController extends Controller {
         if (isset($dados['valorTitleId']) || $dados['valorTitleId'] != null) {
             $result = consumirMarvelController::BuscaTitleId($dados['valorTitleId']);
             $dados = $result->getData();
-            if ($dados[0][0] != false) {
+
+            if (!isset($dados->error)) {
                 return view('dashboard', ['data' => $dados]);
             } else {
-                return view('dashboard', ['error' => $dados]);
+                return view('dashboard', ['error' => json_encode($dados)]);
             }
         } else {
-            return view('dashboard', ['error' => ['sucesso' => false, 'mensagem' => 'Não foi digitado nenhuma informação']]);
+            $informações = [
+                "error" => true,
+                "mensagem" => 'Não foi digitado nenhuma informação',
+            ];
+            return view('dashboard', ['error' => json_encode($informações)]);
         }
     }
 
@@ -60,20 +65,20 @@ class dashboardController extends Controller {
 
                 $meusQuadrinhos->save();
                 $informações = [
-                    "sucesso" => true,
+                    "error" => false,
                     "mensagem" => "Comics salva com sucesso!!",
                 ];
                 return response()->json($informações);
             } else {
                 $informações = [
-                    "sucesso" => false,
+                    "error" => true,
                     "mensagem" => "Comics já está salva!!",
                 ];
                 return response()->json($informações);
             }
         } catch (Exception $e) {
             $informações = [
-                "sucesso" => false,
+                "error" => true,
                 "mensagem" => "Error: " . $e,
             ];
             return response()->json($informações);
