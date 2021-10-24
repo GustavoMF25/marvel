@@ -46,52 +46,31 @@
                         <div class="col-12">
                             <span class="fw-bold">Título:</span> {{$value[1]}}
                         </div> 
-                    </div>
-
-                    @if(is_null($value[8]))
-                    <div class="row d-flex justify-content-between">
-                        <div class="col-6 d-flex justify-content-start">
-                            <a class="btn"> 
-                                <i style="color: #3A86DC" class="fas fa-paper-plane"></i>
-                            </a>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <form method="get" action="{{route('destroyMeusQuadrinhos')}}">
-                                @csrf
-                                <input name="idComics" hidden value="{{$value[0]}}" />
-                                <button class="btn" type="submit">
-                                    <span class="small"><i style="color: #ff1a1a" class="fas fa-trash"></i></span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="card card-body">
-                        </div>
-                    </div>
-                    @else
-                    <div class="row d-flex justify-content-between">
-                        <div class="col-6 d-flex justify-content-start">
-                            <a class="btn" ata-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> 
-                                <i style="color: #3A86DC" class="fas fa-paper-plane"></i>
-                            </a>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <form method="get" action="{{route('destroyMeusQuadrinhos')}}">
-                                @csrf
-                                <input name="idComics" hidden value="{{$value[0]}}" />
-                                <button class="btn" type="submit">
-                                    <span class="small"><i style="color: #ff1a1a" class="fas fa-trash"></i></span>
-                                </button>
-                            </form>
-                        </div>
-
                         <div class="col-12">
-                            <span class="fw-bold">Comentário:</span> {{$value[8]}}
+                            <span class="fw-bold">Comentário: </span> {{$value[8]}}
                         </div> 
-
                     </div>
-                    @endif
+
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-6 d-flex ml-0 justify-content-start">
+                            <a class="btn" href="{{route('updateViewMeusQuadrinhos', $value[9])}}">
+                                <span class="small">
+                                    <i style="color: #3A86DC"  class="fas fa-edit"></i>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <form method="get" action="{{route('destroyMeusQuadrinhos')}}">
+                                @csrf
+                                <input name="idComics" hidden value="{{$value[0]}}" />
+                                <button type="submit" class="btn">
+                                    <span class="small">
+                                        <i style="color: #ff1a1a"  class="fas fa-trash"></i>
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
 
                 </div>
 

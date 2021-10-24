@@ -20,14 +20,11 @@ class MeusQuadrinhosController extends Controller {
             $dadosQuadrinhos[$key][] = $value->ean;
             $dadosQuadrinhos[$key][] = json_decode($value->prices, true);
             $dadosQuadrinhos[$key][] = json_decode($value->images, true);
-            $dadosQuadrinhos[$key][] = $value->comentario;
+            $dadosQuadrinhos[$key][] = $value->comentar;
+            $dadosQuadrinhos[$key][] = $value->id;
         }
 
         return view('meusQuadrinhos', ['data' => $dadosQuadrinhos]);
-    }
-
-    public function create() {
-        //
     }
 
     public function store(Request $request) {
@@ -83,10 +80,6 @@ class MeusQuadrinhosController extends Controller {
         }
     }
 
-    public function show($id) {
-        //
-    }
-
     public function destroy(Request $id) {
         $response = $id->all();
 
@@ -112,6 +105,8 @@ class MeusQuadrinhosController extends Controller {
                 $dadosQuadrinhos[$key][] = $value->ean;
                 $dadosQuadrinhos[$key][] = json_decode($value->prices, true);
                 $dadosQuadrinhos[$key][] = json_decode($value->images, true);
+                $dadosQuadrinhos[$key][] = $value->comentar;
+                $dadosQuadrinhos[$key][] = $value->id;
             }
 
             return view('meusQuadrinhos', ['error' => json_encode($informações), 'data' => $dadosQuadrinhos]);
@@ -128,6 +123,8 @@ class MeusQuadrinhosController extends Controller {
                 $dadosQuadrinhos[$key][] = $value->ean;
                 $dadosQuadrinhos[$key][] = json_decode($value->prices, true);
                 $dadosQuadrinhos[$key][] = json_decode($value->images, true);
+                $dadosQuadrinhos[$key][] = $value->comentar;
+                $dadosQuadrinhos[$key][] = $value->id;
             }
 
             $informações = [
@@ -136,6 +133,61 @@ class MeusQuadrinhosController extends Controller {
             ];
             return view('meusQuadrinhos', ['error' => json_encode($informações), 'data' => $dadosQuadrinhos]);
         }
+    }
+
+    public function update(Request $request) {
+
+        $response = $request->all();
+        $comics = MeusQuadrinhos::find($response['id']);
+        $comics->comentar = $response['comentario'];
+        $comics->description = $response['descricao'];
+        $update = $comics->update();
+        if ($update) {
+            $quadrinhos = MeusQuadrinhos::all();
+            $dadosQuadrinhos = [];
+            foreach ($quadrinhos as $key => $value) {
+                $dadosQuadrinhos[$key][] = $value->idComics;
+                $dadosQuadrinhos[$key][] = $value->title;
+                $dadosQuadrinhos[$key][] = $value->description;
+                $dadosQuadrinhos[$key][] = json_decode($value->url, true);
+                $dadosQuadrinhos[$key][] = json_decode($value->thumbnail, true);
+                $dadosQuadrinhos[$key][] = $value->ean;
+                $dadosQuadrinhos[$key][] = json_decode($value->prices, true);
+                $dadosQuadrinhos[$key][] = json_decode($value->images, true);
+                $dadosQuadrinhos[$key][] = $value->comentar;
+                $dadosQuadrinhos[$key][] = $value->id;
+            }
+            $informacoes = [
+                "error" => false,
+                "mensagem" => 'Informações Atualizadas com sucesso!!!',
+            ];
+            return view('meusQuadrinhos', ['error' => json_encode($informacoes), 'data' => $dadosQuadrinhos]);
+        } else {
+            $quadrinhos = MeusQuadrinhos::all();
+            $dadosQuadrinhos = [];
+            foreach ($quadrinhos as $key => $value) {
+                $dadosQuadrinhos[$key][] = $value->idComics;
+                $dadosQuadrinhos[$key][] = $value->title;
+                $dadosQuadrinhos[$key][] = $value->description;
+                $dadosQuadrinhos[$key][] = json_decode($value->url, true);
+                $dadosQuadrinhos[$key][] = json_decode($value->thumbnail, true);
+                $dadosQuadrinhos[$key][] = $value->ean;
+                $dadosQuadrinhos[$key][] = json_decode($value->prices, true);
+                $dadosQuadrinhos[$key][] = json_decode($value->images, true);
+                $dadosQuadrinhos[$key][] = $value->comentar;
+                $dadosQuadrinhos[$key][] = $value->id;
+            }
+            $informações = [
+                "error" => true,
+                "mensagem" => 'Falha ao atualizar as informações!!!',
+            ];
+            return view('meusQuadrinhos', ['error' => json_encode($informações), 'data' => $dadosQuadrinhos]);
+        }
+    }
+
+    public function updateView(Request $request, $id) {
+        $quadrinhos = MeusQuadrinhos::find($id)->toArray();
+        return view('editMeusQuadrinhos', ['data' => $quadrinhos]);
     }
 
 }
