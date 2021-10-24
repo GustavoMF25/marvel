@@ -71,9 +71,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}"><i class="fas fa-home"></i> Inicio</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('favoritos')}}"><i style="color: #E8D108" class="fas fa-star"></i> Favoritos</a>
-                        </li>
+                        <!--                        <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="{{route('favoritos')}}"><i style="color: #E8D108" class="fas fa-star"></i> Favoritos</a>
+                                                </li>-->
 
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{route('comicsSemana')}}">
@@ -134,7 +134,6 @@
                 </div>
             </div>
         </div>
-
 
         @yield('script')
         <script>

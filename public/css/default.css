@@ -144,6 +144,9 @@ input:focus {
     opacity: 0.8;
     border-width: 2px;
 }
+.card{
+    border-radius: 10px;
+}
 .cardComics:hover {
     cursor: pointer;
     opacity: 1;

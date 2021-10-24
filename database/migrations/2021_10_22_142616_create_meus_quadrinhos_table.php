@@ -17,6 +17,7 @@ class CreateMeusQuadrinhosTable extends Migration {
             $table->foreignId('user_id')->constrained();
             $table->integer('idComics')->unique();
             $table->string('title');
+            $table->string('comentar')->nullable();
             $table->longText('description')->nullable();
             $table->json('url')->nullable();
             $table->json('thumbnail')->nullable();

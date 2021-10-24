@@ -32,7 +32,7 @@ Route::post('/favoritos', [FavoritoController::class, 'store'])->middleware(['au
 
 Route::get('/meusQuadrinhos', [MeusQuadrinhosController::class, 'index'])->middleware(['auth'])->name('indexMeusQuadrinho');
 Route::post('/meusQuadrinhos', [MeusQuadrinhosController::class, 'store'])->middleware(['auth'])->name('storeMeusQuadrinhos');
-//Route::get('/meusQuadrinhos/delete', [MeusQuadrinhosController::class, 'destroy'])->middleware(['auth'])->name('storeMeusQuadrinhos');
+Route::get('/meusQuadrinhos/delete', [MeusQuadrinhosController::class, 'destroy'])->middleware(['auth'])->name('destroyMeusQuadrinhos');
 
 Route::get('/ComicsDaSemana', [QuadrinhoController::class, 'index'])->middleware(['auth'])->name('comicsSemana');
 

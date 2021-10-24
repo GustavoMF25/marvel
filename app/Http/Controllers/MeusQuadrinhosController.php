@@ -30,7 +30,6 @@ class MeusQuadrinhosController extends Controller {
 
     public function store(Request $request) {
         try {
-            dd('aq');
             $dados = json_decode($request->all()['Comics'], true);
             $verificaIdComics = MeusQuadrinhos::where("idComics", $dados[0])
                     ->select('idComics')
@@ -48,8 +47,7 @@ class MeusQuadrinhosController extends Controller {
                 $quadrinho->ean = $dados[5];
                 $quadrinho->prices = json_encode($dados[6]);
                 $quadrinho->images = json_encode($dados[7]);
-                dd($quadrinho);
-//                $quadrinho->save();
+                $quadrinho->save();
 
                 $mensagem[0] = true;
                 $mensagem[1] = 'Comics salva na sua lista!';
@@ -70,8 +68,28 @@ class MeusQuadrinhosController extends Controller {
         //
     }
 
-    public function destroy($id) {
-        //
+    public function destroy(Request $id) {
+        $response = $id->all();
+
+        $comics = MeusQuadrinhos::where('idComics', $response['idComics'])
+                ->get();
+        if (count($comics) > 0) {
+            foreach ($comics as $item) {
+                MeusQuadrinhos::destroy($item->id);
+            }
+            $informações = [
+                "sucesso" => true,
+                "mensagem" => 'Comics excluida da sua lista!',
+            ];
+            return response()->json($informações);
+        } else {
+
+            $informações = [
+                "sucesso" => false,
+                "mensagem" => 'Comics não encontrada na sua lista',
+            ];
+            return response()->json($informações);
+        }
     }
 
 }

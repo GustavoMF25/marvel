@@ -38,6 +38,7 @@
                     </a>
                 </form>
                 <div class="card-body">
+
                     <div class="row">
                         <div class="col-12">
                             <span class="fw-bold" style="font-size: small">#{{$value[0]}}</span>
@@ -47,10 +48,24 @@
                         </div> 
                     </div>
                     <div class="row">
-                        <div class="col-4">
-                            <span class="small">Comentar </span><i style="color: #D8D70F" class="far fa-star"></i>
+
+                        <div class="card card-body">
+                            
                         </div>
                     </div>
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-6 d-flex justify-content-start">
+                            <a class="btn" ata-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> 
+                                <span class="small"><i style="color: #D8D70F" class="fas fa-comments"></i> </span>
+                            </a>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <button class="btn" onclick="ExcluirComics('{{$value[0]}}')">
+                                <span class="small"><i style="color: #ff1a1a" class="fas fa-trash"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -58,7 +73,48 @@
 
 
         @endforeach
+        @else
+        <div class="text-center">
+            Sua lista está vazia!!
+        </div>
         @endif
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    function ExcluirComics(idComics) {
+    $.ajax({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+            method: "get",
+            url: "{{route('destroyMeusQuadrinhos')}}",
+            data: {idComics: idComics, _token: '{{csrf_token()}}'},
+            success: function (dados) {
+            console.log(dados)
+//                Assim que a requisição terminar vai exibir as mensagens recebidas do controller
+                    if (dados.sucesso === true){
+            $('.toast').removeClass('hide').addClass('show').addClass('bg-success').removeClass('bg-danger')
+                    $('.mensagemRetorno').html(dados.mensagem)
+                    setTimeout(() => {
+                    $('.toast').removeClass('show').addClass('hide');
+                    }, 12000)
+            }
+
+            if (dados.sucesso === false){
+            $('.toast').removeClass('hide').addClass('show').addClass('bg-danger').removeClass('bg-success')
+                    $('.mensagemRetorno').html(dados.mensagem)
+                    setTimeout(() => {
+                    $('.toast').removeClass('show').addClass('hide');
+                    }, 12000)
+            }
+            },
+            error: function (error) {
+            console.log(error)
+            }
+    })
+    }
+</script>
 @endsection

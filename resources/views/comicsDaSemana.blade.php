@@ -49,7 +49,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6 col-md-6 col-6 ">
-                            <button class="btn btn-link" onclick="salvarComics('{{$value[0]}}')">
+                            <button class="btn" onclick="salvarComics('{{$value[0]}}')">
                                 <i style="color: #4cdf16; width: 20px; height: 20px;"  class="fas fa-plus"></i>
                             </button>
                         </div>
