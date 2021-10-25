@@ -84,7 +84,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{route('indexMeusQuadrinho')}}">
-                                <i class="fas fa-bookmark"></i>
+                                <i style="color: #4cdf16;"  class="fas fa-bookmark"></i>
                                 Minhas Comics</a>
                         </li>
 
