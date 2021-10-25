@@ -10,7 +10,6 @@ class Quadrinhos extends Model {
     use HasFactory;
 
     protected $table = 'quadrinhos';
-    
     protected $fillable = [
         'idComics',
         'title',
@@ -21,4 +20,5 @@ class Quadrinhos extends Model {
         'prices',
         'images',
     ];
+
 }

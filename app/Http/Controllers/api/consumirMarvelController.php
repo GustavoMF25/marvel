@@ -6,11 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Models\Quadrinhos;
+use App\Models\User;
 
 class consumirMarvelController extends Controller {
 
+    public function index() {
+        //
+    }
+
     public function BuscaTitleId($titleId) {
         try {
+
             // Verifica se o valor passao é numérico ou uma string, caso for o prefixo vai ser definico para procurar um id se não vai procurar um título
             if (is_numeric($titleId)) {
                 $prefix = '/' . $titleId . '?';
