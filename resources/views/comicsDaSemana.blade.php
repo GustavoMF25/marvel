@@ -50,7 +50,7 @@
                     <div class="row">
                         <div class="col-sm-6 col-md-6 col-6 ">
                             <button class="btn" onclick="salvarComics('{{$value[0]}}')">
-                                <i style="color: #4cdf16; width: 20px; height: 20px;"  class="fas fa-plus"></i>
+                                <i style="color: #4cdf16;"  class="fas fa-bookmark"></i>
                             </button>
                         </div>
                         <div class="col-sm-12 col-md-6 col-12 text-center">
