@@ -9,12 +9,6 @@
         <h1>{{$data['title']}} </h1>
         <span class="fw-bold mb-3">#{{$data['idComics']}}</span>
         <div class="form-group mb-3">
-            <label class="fw-bold">Descrição: </label>
-            <textarea class="form-control" name="descricao" rows="3">
-                {{$data['description']}}
-            </textarea>
-        </div>
-        <div class="form-group mb-3">
             <label class="fw-bold">Comentário: </label>
             <textarea class="form-control" name="comentario" rows="3">
                 {{$data['comentar']}}

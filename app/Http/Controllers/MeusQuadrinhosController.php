@@ -140,7 +140,6 @@ class MeusQuadrinhosController extends Controller {
         $response = $request->all();
         $comics = MeusQuadrinhos::find($response['id']);
         $comics->comentar = $response['comentario'];
-        $comics->description = $response['descricao'];
         $update = $comics->update();
         if ($update) {
             $quadrinhos = MeusQuadrinhos::all();
