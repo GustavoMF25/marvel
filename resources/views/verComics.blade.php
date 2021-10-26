@@ -17,6 +17,9 @@
                         <div class="text-center"> 
                             <span class="fw-bold"> # {{$data[0][0]}}</span>
                         </div>
+                        <div class="text-center"> 
+                            <span class="fw-bold"> Ean: {{$data[0][5]}}</span>
+                        </div>
                     </div>
                     <div class="row">
 <!--                        <div class="col-sm-12 col-md-12 col-12 text-center">
