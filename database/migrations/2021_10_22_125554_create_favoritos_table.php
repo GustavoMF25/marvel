@@ -4,11 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuadrinhosTable extends Migration {
+class CreateFavoritosTable extends Migration {
 
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up() {
-        Schema::create('quadrinhos', function (Blueprint $table) {
+        Schema::create('favoritos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('meus_quadrinhos_id')->constrained();
             $table->integer('idComics')->unique();
             $table->string('title');
             $table->string('description')->nullable();
@@ -27,7 +33,8 @@ class CreateQuadrinhosTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('quadrinhos');
+        $table->dropForeign('meus_quadrinhos_id');
+        Schema::dropIfExists('favoritos');
     }
 
 }

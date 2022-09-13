@@ -6,7 +6,7 @@
     <div class="card mt-3">
         <div class="card-body">
             <h5 class="card-title">Pesquisa de Comics</h5>
-            <form class='d-flex' method="get" action="{{route('buscaComics')}}">
+            <form class='d-flex' method="post" accept-charset="{{route('buscaComics')}}">
                 @csrf
                 <input class="form-control me-2" id="valorTitleId" name="valorTitleId" type="search" placeholder="Pesquisar por Título ou Id" aria-label="Search" required>
                 <button class="btn btn-outline-success" type="submit">Pesquisar</button>
@@ -62,25 +62,51 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6 col-md-6 col-6 ">
-                            <button class="btn btn-link" onclick="salvarComics('{{$value[0]}}')">
-                                <i style="color: #4cdf16;"  class="fas fa-bookmark"></i>
-                            </button>
+                            <form class="cardComics" id="form_{{$value[0]}}_list" method="get" action="{{route('storeQuadrinhos')}}">
+                                <input type="text" value="{{json_encode($value)}}" name="Comics" hidden>
+                                <a onClick="document.getElementById('form_{{$value[0]}}_list').submit();">
+                                    <span>
+                                        <i style="color: #4cdf16; width: 20px; height: 20px;"  class="fas fa-plus"></i>
+                                    </span>
+                                </a>
+                            </form>
                         </div>
                         <div class="col-sm-12 col-md-6 col-12 text-center">
                         </div>
                     </div>
                 </div>
-           </div>
+
+
+            </div>
         </div> 
+
+
         @endforeach
         @endif
     </div>
 
 </div>
-@endsection
-@section('script')
-<script>
-    
-</script>
+
+
+@if(isset($error))
+<div class="alert alert-danger mt-3 text-center mensagemError" role="alert">
+    {{$error[0][1]}}
+</div>
+@endif
 @endsection
 
+@section('script')
+<!--<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+    $("#adicionarMinhaLista").click(function(){
+    $.ajax({
+    method: "post",
+            url: "{{route('storeQuadrinhos')}}",
+            success: function(){
+            alert('Sucesso!!')
+            }
+    })
+    })
+    })
+</script>-->;
+@endsection

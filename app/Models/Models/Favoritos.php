@@ -1,31 +1,26 @@
 <?php
 
-namespace App\Models\modesl;
+namespace App\Models\models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MeusQuadrinhos extends Model {
+class Favoritos extends Model {
 
     use HasFactory;
 
-    protected $table = 'meus_quadrinhos';
+    protected $table = 'favoritos';
     protected $fillable = [
         'user_id',
-        'idComics',
-        'title',
-        'description',
-        'url',
-        'thumbnail',
-        'ean',
-        'prices',
-        'images',
+        'meus_quadrinhos_id',
     ];
 
     public function user() {
         return $this->belongsTo('App/Models/User');
     }
 
-    
+    public function favoritos() {
+        return $this->belongsTo('App/Models/models/Favoritos');
+    }
 
 }

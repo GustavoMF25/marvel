@@ -123,23 +123,6 @@ input:focus {
     box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2);
 }
 
-.rotate-icon {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    animation: async 0.8s linear infinite;
-}
-
-@keyframes async {
-    0%{
-        transform: rotate(0);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
 .error-text {
     color: red;
 }
@@ -160,9 +143,6 @@ input:focus {
     border-radius: 10px;
     opacity: 0.8;
     border-width: 2px;
-}
-.card{
-    border-radius: 10px;
 }
 .cardComics:hover {
     cursor: pointer;
@@ -223,18 +203,6 @@ li:hover fa-sync-alt{
 }
 .toast{
     transition: 0.8s;
-}
-
-#adicionarMinhaLista{
-    cursor: pointer;
-    background-color: transparent;
-    opacity: 0.5;
-}
-#adicionarMinhaLista:hover{
-    opacity: 1;
-    -webkit-box-shadow: -2px 2px 41px -14px rgba(0,0,0,0.75);
-    -moz-box-shadow: -2px 2px 41px -14px rgba(0,0,0,0.75);
-    box-shadow: -2px 2px 41px -14px rgba(0,0,0,0.75); 
 }
 
 

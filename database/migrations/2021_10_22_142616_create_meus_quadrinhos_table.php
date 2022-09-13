@@ -17,8 +17,7 @@ class CreateMeusQuadrinhosTable extends Migration {
             $table->foreignId('user_id')->constrained();
             $table->integer('idComics')->unique();
             $table->string('title');
-            $table->string('comentar')->nullable();
-            $table->longText('description')->nullable();
+            $table->string('description')->nullable();
             $table->json('url')->nullable();
             $table->json('thumbnail')->nullable();
             $table->string('ean')->nullable();
@@ -34,6 +33,7 @@ class CreateMeusQuadrinhosTable extends Migration {
      * @return void
      */
     public function down() {
+        $table->dropForeign('favoritos_user_id_foreign');
         Schema::dropIfExists('meus_quadrinhos');
     }
 

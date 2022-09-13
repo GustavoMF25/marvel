@@ -6,17 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Models\Quadrinhos;
-use App\Models\User;
 
 class consumirMarvelController extends Controller {
 
-    public function index() {
-        //
-    }
-
     public function BuscaTitleId($titleId) {
         try {
-
             // Verifica se o valor passao é numérico ou uma string, caso for o prefixo vai ser definico para procurar um id se não vai procurar um título
             if (is_numeric($titleId)) {
                 $prefix = '/' . $titleId . '?';
@@ -47,18 +41,14 @@ class consumirMarvelController extends Controller {
                 }
                 return response()->json($dadosComics);
             } else {
-                $informações = [
-                    "error" => true,
-                    "mensagem" => 'Comics não encontrada!',
-                ];
-                return response()->json($informações);
+                $dadosComics[0] = false;
+                $dadosComics[1] = 'Comics não encontrada!';
+                return response()->json([$dadosComics]);
             }
         } catch (Exception $e) {
-            $informações = [
-                "error" => true,
-                "mensagem" => 'Error: ' . $e,
-            ];
-            return response()->json($informações);
+            $dadosComics[0] = false;
+            $dadosComics[1] = $e;
+            return response()->json([$dadosComics]);
         }
     }
 
@@ -94,17 +84,17 @@ class consumirMarvelController extends Controller {
                         ->select('idComics')
                         ->first();
                 if (is_null($verificaIdComics)) {
-                    $quadrinho = new Quadrinhos;
-                    $quadrinho->idComics = $dadosIdComics;
-                    $quadrinho->title = $dadosTitle;
-                    $quadrinho->description = $dadosDescription;
-                    $quadrinho->url = $dadosUrls;
-                    $quadrinho->thumbnail = $dadosThumbnail;
-                    $quadrinho->ean = $dadosEan;
-                    $quadrinho->prices = $dadosPrices;
-                    $quadrinho->images = $dadosImages;
+                    $guadrinho = new Quadrinhos;
+                    $guadrinho->idComics = $dadosIdComics;
+                    $guadrinho->title = $dadosTitle;
+                    $guadrinho->description = $dadosDescription;
+                    $guadrinho->url = $dadosUrls;
+                    $guadrinho->thumbnail = $dadosThumbnail;
+                    $guadrinho->ean = $dadosEan;
+                    $guadrinho->prices = $dadosPrices;
+                    $guadrinho->images = $dadosImages;
 
-                    $quadrinho->save();
+                    $guadrinho->save();
                     $contSucesso++;
                 } else {
                     $contError++;
